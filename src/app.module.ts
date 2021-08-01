@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Book } from './book.entity';
+import { BooksController } from './books.controller';
+import { BooksService } from './books.service';
 
 @Module({
   imports: [
@@ -14,12 +18,16 @@ import { AppService } from './app.service';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
-      entities: [],
+      entities: [Book],
       autoLoadEntities: true,
       synchronize: true,
+      logging: true
     }),
+    TypeOrmModule.forFeature([Book])
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, BooksController],
+  providers: [AppService, BooksService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {}
+}
