@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity('books')
 export class Book {
 
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   title: string;
@@ -19,9 +19,6 @@ export class Book {
   @Column('simple-array')
   authors: string[];
 
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
+  @CreateDateColumn()
+  released_at: Date;
 }

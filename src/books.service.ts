@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { Book } from "./book.entity";
 
 @Injectable()
@@ -19,10 +19,9 @@ export class BooksService {
         return await this.booksRepository.findOne(id);
     }
 
-    // async updateBook(id: string, book: Book): Promise<[string, Book[]]> {
-    //     const book_id = await this.booksRepository.findOne(book, { where : { id: book.id }});
-    //     return this.booksRepository.save(book_id);
-    // }
+    async updateBook(book: Book): Promise<UpdateResult> {
+        return await this.booksRepository.update(book.id, book);
+    }
 
     async deleteBook(id: string): Promise<void> {
         await this.booksRepository.delete(id);
