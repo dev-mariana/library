@@ -1,11 +1,11 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
-// import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'; 
 
 @Entity('books')
 export class Book {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  readonly id: string;
 
   @Column()
   title: string;
@@ -21,4 +21,10 @@ export class Book {
 
   @CreateDateColumn()
   released_at: Date;
+
+  constructor() {
+    if(!this.id) {
+      this.id = uuid();
+    }
+  }
 }

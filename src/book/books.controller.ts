@@ -23,7 +23,7 @@ export class BooksController {
 
   @Put(':id')
   async update(@Param('id') id, @Body() book: Book): Promise<any> {
-    book.id = Number(id);
+    // book.id = String(id);
     return this.booksService.updateBook(book);
   }
 
