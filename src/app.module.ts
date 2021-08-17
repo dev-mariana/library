@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BooksModule } from './book/books.module';
 import { Book } from './book/interfaces/book.entity';
-import { BooksController } from './book/books.controller';
-import { BooksService } from './book/books.service';
 
 @Module({
   imports: [
@@ -20,10 +19,11 @@ import { BooksService } from './book/books.service';
       synchronize: true,
       logging: true
     }),
-    TypeOrmModule.forFeature([Book])
+    TypeOrmModule.forFeature([Book]),
+    BooksModule
   ],
-  controllers: [BooksController],
-  providers: [BooksService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   constructor() {}
