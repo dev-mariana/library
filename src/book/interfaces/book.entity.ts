@@ -18,6 +18,9 @@ export class Book {
 
   @Column('simple-array')
   authors: string[];
+  
+  @Column()
+  description: string;
 
   @CreateDateColumn()
   released_at: Date;

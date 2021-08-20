@@ -7,6 +7,8 @@ export class UpdateBookDto {
     photo: string;
   
     authors: string[];
+
+    description: string;
   
     released_at: Date;
 }
