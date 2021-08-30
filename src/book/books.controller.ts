@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ValidationParameters } from './../common/pipes/validation-parameters.pipe';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Book } from './interfaces/book.entity';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dtos/create-book.dto';
@@ -14,23 +15,23 @@ export class BooksController {
   }
 
   @Post()
-  async create(@Body() createBookDto: CreateBookDto): Promise<void> {
-    await this.booksService.createBook(createBookDto);
+  @UsePipes(ValidationPipe)
+  async create(@Body() createBookDto: CreateBookDto): Promise<Book> {
+    return await this.booksService.createBook(createBookDto);
   }
 
   @Get(':id')
-  async getBook(@Param() params): Promise<Book> {
-    return await this.booksService.getBook(params.id);
+  async getBook(@Param('id', ValidationParameters) id: string): Promise<Book> {
+    return await this.booksService.getBook(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto): Promise<void> {
-    // book.id = String(id);
+  async update(@Param('id', ValidationParameters) id: string, @Body() updateBookDto: UpdateBookDto): Promise<void> {
     return this.booksService.updateBook(id, updateBookDto);
   }
 
   @Delete(':id')
-  async delete(@Param() params) {
-    this.booksService.deleteBook(params.id);
+  async delete(@Param('id', ValidationParameters) id: string): Promise<any> {
+    return this.booksService.deleteBook(id);
   }
 }
