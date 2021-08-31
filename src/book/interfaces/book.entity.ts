@@ -16,12 +16,12 @@ export class Book {
   @Column()
   photo: string;
 
+  @Column()
+  description: string;
+  
   @Column('simple-array')
   authors: string[];
   
-  @Column()
-  description: string;
-
   @CreateDateColumn()
   released_at: Date;
 

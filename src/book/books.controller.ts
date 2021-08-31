@@ -26,8 +26,9 @@ export class BooksController {
   }
 
   @Put(':id')
+  @UsePipes(ValidationPipe)
   async update(@Param('id', ValidationParameters) id: string, @Body() updateBookDto: UpdateBookDto): Promise<void> {
-    return this.booksService.updateBook(id, updateBookDto);
+    this.booksService.updateBook(id, updateBookDto);
   }
 
   @Delete(':id')
