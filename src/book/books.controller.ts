@@ -1,5 +1,15 @@
 import { ValidationParameters } from './../common/pipes/validation-parameters.pipe';
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Book } from './interfaces/book.entity';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dtos/create-book.dto';
@@ -27,7 +37,10 @@ export class BooksController {
 
   @Put(':id')
   @UsePipes(ValidationPipe)
-  async update(@Param('id', ValidationParameters) id: string, @Body() updateBookDto: UpdateBookDto): Promise<void> {
+  async update(
+    @Param('id', ValidationParameters) id: string,
+    @Body() updateBookDto: UpdateBookDto,
+  ): Promise<void> {
     this.booksService.updateBook(id, updateBookDto);
   }
 

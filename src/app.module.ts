@@ -17,10 +17,10 @@ import { Book } from './book/interfaces/book.entity';
       entities: [Book],
       autoLoadEntities: true,
       synchronize: true,
-      logging: true
+      logging: true,
     }),
     TypeOrmModule.forFeature([Book]),
-    BooksModule
+    BooksModule,
   ],
   controllers: [],
   providers: [],
